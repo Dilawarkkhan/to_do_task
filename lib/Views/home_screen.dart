@@ -1,16 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:to_do_task/Views/view_screen.dart';
-
+import 'package:to_do_task/Views/update_screen.dart';
 
 import 'package:to_do_task/providers/task_provider.dart';
-
 
 import 'package:to_do_task/widgets/app_bar.dart';
 import 'package:to_do_task/widgets/buttons/floating_button.dart';
 
 import 'add_task_screen.dart';
-
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -30,12 +27,17 @@ class HomeScreen extends StatelessWidget {
           itemBuilder: (context, index) {
             var task = provider.tasks[index];
             return ListTile(
-              onTap: () => Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) =>  ViewScreen(task: task,),
-                ),
-              ),
+              onTap: () async {
+                var editedTask = await Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => UpdateScreen(task: task),
+                  ),
+                );
+                if (editedTask != null) {
+                  provider.updateTask(editedTask);
+                }
+              },
               title: Text(task.title),
               trailing: IconButton(
                 icon: const Icon(Icons.delete),

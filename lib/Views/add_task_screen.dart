@@ -5,7 +5,6 @@ import 'package:to_do_task/widgets/app_bar.dart';
 import 'package:to_do_task/widgets/buttons/elevated_button.dart';
 
 import '../models/task_model.dart';
-import 'home_screen.dart';
 
 class AddTaskScreen extends StatefulWidget {
   const AddTaskScreen({
@@ -58,14 +57,12 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
           ElevatedButtonWidget(
             buttonText: 'Save Task',
             onPressed: () {
-              final task = Task(title: _descriptionText.text);
-              context.read<TaskProvider>().addTask(task);
-              Navigator.pop(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const HomeScreen(),
-                ),
+              final task = Task(
+                title: _descriptionText.text,
+                id: UniqueKey().toString(),
               );
+              context.read<TaskProvider>().addTask(task);
+              Navigator.pop(context);
             },
           ),
         ],

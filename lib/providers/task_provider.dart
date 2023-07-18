@@ -20,7 +20,16 @@ class TaskProvider extends ChangeNotifier {
     _saveTasks();
     notifyListeners();
   }
+  
 
+  void updateTask(Task updatedTask) {
+    final index = _tasks.indexWhere((task) => task.id == updatedTask.id);
+    if (index != -1) {
+      _tasks[index] = updatedTask;
+      _saveTasks();
+      notifyListeners();
+    }
+  }
   void toggleTask(Task task) {
     task.isDone = !task.isDone;
     _saveTasks();
