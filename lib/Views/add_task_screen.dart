@@ -1,19 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:to_do_task/providers/list_provider.dart';
-import 'package:to_do_task/widgets/appbar.dart';
+import 'package:to_do_task/providers/task_provider.dart';
+import 'package:to_do_task/widgets/app_bar.dart';
+import 'package:to_do_task/widgets/buttons/elevated_button.dart';
 
+import '../models/task_model.dart';
 import 'home_screen.dart';
-import 'models/task_model.dart';
 
-class AddTextScreen extends StatefulWidget {
-  const AddTextScreen({super.key, required int index});
+class AddTaskScreen extends StatefulWidget {
+  const AddTaskScreen({
+    super.key,
+  });
 
   @override
-  State<AddTextScreen> createState() => _AddTextScreenState();
+  State<AddTaskScreen> createState() => _AddTaskScreenState();
 }
 
-class _AddTextScreenState extends State<AddTextScreen> {
+class _AddTaskScreenState extends State<AddTaskScreen> {
   late final TextEditingController _descriptionText;
 
   @override
@@ -33,7 +36,9 @@ class _AddTextScreenState extends State<AddTextScreen> {
     return Scaffold(
       appBar: const PreferredSize(
         preferredSize: Size(0, 65),
-        child: CustomAppbar(),
+        child: CustomAppBar(
+          title: "Add Task",
+        ),
       ),
       body: Column(
         children: [
@@ -50,7 +55,8 @@ class _AddTextScreenState extends State<AddTextScreen> {
           const SizedBox(
             height: 50,
           ),
-          ElevatedButton(
+          ElevatedButtonWidget(
+            buttonText: 'Save Task',
             onPressed: () {
               final task = Task(title: _descriptionText.text);
               context.read<TaskProvider>().addTask(task);
@@ -61,14 +67,6 @@ class _AddTextScreenState extends State<AddTextScreen> {
                 ),
               );
             },
-            style: ButtonStyle(
-              backgroundColor: MaterialStateProperty.all<Color>(
-                const Color.fromARGB(255, 182, 44, 6),
-              ), // Replace with your desired color
-            ),
-            child: const Text(
-              'Save Text',
-            ),
           ),
         ],
       ),

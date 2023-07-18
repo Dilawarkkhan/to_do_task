@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'models/task_model.dart';
-import 'providers/list_provider.dart';
+import '../models/task_model.dart';
+import '../providers/task_provider.dart';
 
-class TaskderailScreen extends StatelessWidget {
-  const TaskderailScreen({Key? key}) : super(key: key);
+
+class TaskDetailScreen extends StatelessWidget {
+  const TaskDetailScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

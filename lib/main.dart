@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:to_do_task/home_screen.dart';
+import 'package:to_do_task/core/app_theme.dart';
 
-import 'providers/list_provider.dart';
+
+import 'providers/task_provider.dart';
+import 'Views/home_screen.dart';
+
 
 void main() {
   runApp(const MyApp());
@@ -18,7 +21,7 @@ class MyApp extends StatelessWidget {
         create: (context) => TaskProvider()..loadTasks(),
         child: MaterialApp(
           theme: ThemeData(
-            primaryColor: const Color.fromARGB(255, 182, 44, 6),
+            primaryColor: AppThemes.appBarColor,
           ),
           home: const HomeScreen(),
         ));

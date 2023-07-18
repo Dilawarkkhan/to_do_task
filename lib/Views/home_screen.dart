@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:to_do_task/user_description_screen.dart';
+import 'package:to_do_task/Views/view_screen.dart';
 
-import 'package:to_do_task/widgets/appbar.dart';
 
-import 'providers/list_provider.dart';
+import 'package:to_do_task/providers/task_provider.dart';
+
+
+import 'package:to_do_task/widgets/app_bar.dart';
+import 'package:to_do_task/widgets/buttons/floating_button.dart';
+
+import 'add_task_screen.dart';
+
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -14,10 +20,12 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       appBar: const PreferredSize(
         preferredSize: Size(0, 65),
-        child: CustomAppbar(),
+        child: CustomAppBar(
+          title: "User Notes",
+        ),
       ),
       body: Consumer<TaskProvider>(
-        builder: (context, provider, child) => ListView.builder(
+        builder: (_, provider, child) => ListView.builder(
           itemCount: provider.tasks.length,
           itemBuilder: (context, index) {
             var task = provider.tasks[index];
@@ -25,7 +33,7 @@ class HomeScreen extends StatelessWidget {
               onTap: () => Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => AddTextScreen(index: index),
+                  builder: (context) =>  ViewScreen(task: task,),
                 ),
               ),
               title: Text(task.title),
@@ -41,17 +49,16 @@ class HomeScreen extends StatelessWidget {
           },
         ),
       ),
-      floatingActionButton: FloatingActionButton(
+      floatingActionButton: FloatingButtonWidget(
+        iconData: Icons.add,
         onPressed: () {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => const AddTextScreen(index: 0),
+              builder: (context) => const AddTaskScreen(),
             ),
           );
         },
-        backgroundColor: const Color.fromARGB(255, 182, 44, 6),
-        child: const Icon(Icons.add),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );
